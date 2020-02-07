@@ -4,40 +4,51 @@ import sys
 running = True
 best_guess=100
 
+#function to guess number
 def guess_num(number,i,running,running2):
+    #user input
     print("\nGuess a number between 1 and 32:")
     user_input = input()
     guess = int(user_input)
+    #if user guesses right, end while loop
+    #return number of guesses
     if guess==number:
         print("Correct!")
         no_guess = i
         print("Number of guesses {}".format(no_guess))
         running2 = False
+        #if number of guesses is less than five, end program
         if no_guess<5:
             running = False
-        return no_guess,running, running2
+        return running, running2
+    #if guess is too low
     elif guess<number:
-        a = 5
         print("Your guess is too low")
-        return a,running, running2
+        return running, running2
+    #if guess is too high
     elif guess>number:
-        a = 5
         print("Your guess is too high")
-        return a,running, running2
-a = 5
+        return running, running2
+    
 no_round = 1
+
+#whilst program is running
 while running:
+    #generate random number between 1 and 32 (inclusive)
     number1= (random.random() * 33)//1
     number1= int(number1)
+    #print round number
     print("\nRound", no_round)
     i=1
     running2 =True
+    #whilst guessing, loop continuously until correct guess stops the loop
     while running2 == True:
-        if a>4:
-            a,running,running2= guess_num(number1,i,running,running2)
-            i+=1
+        running,running2= guess_num(number1,i,running,running2)
+        i+=1
+    #increment round number
     no_round +=1
     g = i-1
+    #calculate if the number of guesses is better than current best score
     if g<best_guess:
         best_guess = g
-    print("High score (lowest number of guesses):", best_guess)
+    print("Best score (lowest number of guesses):", best_guess)
